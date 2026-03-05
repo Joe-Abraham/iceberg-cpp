@@ -353,9 +353,8 @@ class ProjectionUtil {
               std::views::transform(value_set,
                                     [](int32_t value) { return Literal::Int(value); }) |
               std::ranges::to<std::vector>();
-          return UnboundPredicateImpl<BoundReference>::Make(Expression::Operation::kIn,
-                                                            projected->term(),
-                                                            std::move(values));
+          return UnboundPredicateImpl<BoundReference>::Make(
+              Expression::Operation::kIn, projected->term(), std::move(values));
         }
         return projected;
       }
@@ -455,9 +454,8 @@ class ProjectionUtil {
               std::views::transform(value_set,
                                     [](int32_t value) { return Literal::Int(value); }) |
               std::ranges::to<std::vector>();
-          return UnboundPredicateImpl<BoundReference>::Make(Expression::Operation::kNotIn,
-                                                            projected->term(),
-                                                            std::move(values));
+          return UnboundPredicateImpl<BoundReference>::Make(
+              Expression::Operation::kNotIn, projected->term(), std::move(values));
         }
         return projected;
       }
