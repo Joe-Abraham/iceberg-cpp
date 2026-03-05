@@ -1352,7 +1352,7 @@ Result<std::unique_ptr<TableMetadata>> TableMetadataBuilder::Impl::Build() {
     metadata_.metadata_log.emplace_back(base_->last_updated_ms,
                                         previous_metadata_location_);
   }
-  if (metadata_.metadata_log.size() > max_metadata_log_size) {
+  if (std::cmp_greater(metadata_.metadata_log.size(), max_metadata_log_size)) {
     metadata_.metadata_log.erase(metadata_.metadata_log.begin(),
                                  metadata_.metadata_log.end() - max_metadata_log_size);
   }

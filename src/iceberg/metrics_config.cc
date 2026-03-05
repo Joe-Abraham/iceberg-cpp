@@ -203,7 +203,7 @@ Result<std::unordered_set<int32_t>> MetricsConfig::LimitFieldIds(const Schema& s
     std::unordered_set<int32_t> Finish() const { return ids_; }
 
    private:
-    bool ShouldContinue() { return ids_.size() < limit_; }
+    bool ShouldContinue() { return std::cmp_less(ids_.size(), limit_); }
 
    private:
     std::unordered_set<int32_t> ids_;
