@@ -710,7 +710,7 @@ struct SelectTestParam {
   std::vector<std::string> select_fields;
   std::function<std::unique_ptr<iceberg::Schema>()> expected_schema;
   bool should_succeed;
-  std::string expected_error_message;
+  std::string expected_error_message = "";
   bool case_sensitive = true;
 };
 
@@ -851,7 +851,7 @@ struct ProjectTestParam {
   std::unordered_set<int32_t> selected_ids;
   std::function<std::unique_ptr<iceberg::Schema>()> expected_schema;
   bool should_succeed;
-  std::string expected_error_message;
+  std::string expected_error_message = "";
 };
 
 class ProjectParamTest : public ::testing::TestWithParam<ProjectTestParam> {};
