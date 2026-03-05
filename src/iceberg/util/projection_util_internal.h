@@ -289,9 +289,8 @@ class ProjectionUtil {
         ICEBERG_DCHECK(std::holds_alternative<int32_t>(literal.value()),
                        "Expected int32_t");
         if (auto value = std::get<int32_t>(literal.value()); value < 0) {
-          return UnboundPredicateImpl<BoundReference>::Make(Expression::Operation::kLt,
-                                                            std::move(projected->term()),
-                                                            Literal::Int(value + 1));
+          return UnboundPredicateImpl<BoundReference>::Make(
+              Expression::Operation::kLt, projected->term(), Literal::Int(value + 1));
         }
 
         return projected;
@@ -304,9 +303,8 @@ class ProjectionUtil {
                        "Expected int32_t");
 
         if (auto value = std::get<int32_t>(literal.value()); value < 0) {
-          return UnboundPredicateImpl<BoundReference>::Make(Expression::Operation::kLtEq,
-                                                            std::move(projected->term()),
-                                                            Literal::Int(value + 1));
+          return UnboundPredicateImpl<BoundReference>::Make(
+              Expression::Operation::kLtEq, projected->term(), Literal::Int(value + 1));
         }
         return projected;
       }
@@ -325,7 +323,7 @@ class ProjectionUtil {
           // match either the incorrect value (projectedValue + 1) or the correct value
           // (projectedValue)
           return UnboundPredicateImpl<BoundReference>::Make(
-              Expression::Operation::kIn, std::move(projected->term()),
+              Expression::Operation::kIn, projected->term(),
               {literal, Literal::Int(value + 1)});
         }
         return projected;
@@ -356,7 +354,7 @@ class ProjectionUtil {
                                     [](int32_t value) { return Literal::Int(value); }) |
               std::ranges::to<std::vector>();
           return UnboundPredicateImpl<BoundReference>::Make(Expression::Operation::kIn,
-                                                            std::move(projected->term()),
+                                                            projected->term(),
                                                             std::move(values));
         }
         return projected;
@@ -397,9 +395,8 @@ class ProjectionUtil {
         ICEBERG_DCHECK(std::holds_alternative<int32_t>(literal.value()),
                        "Expected int32_t");
         if (auto value = std::get<int32_t>(literal.value()); value <= 0) {
-          return UnboundPredicateImpl<BoundReference>::Make(Expression::Operation::kGt,
-                                                            std::move(projected->term()),
-                                                            Literal::Int(value + 1));
+          return UnboundPredicateImpl<BoundReference>::Make(
+              Expression::Operation::kGt, projected->term(), Literal::Int(value + 1));
         }
         return projected;
       }
@@ -410,9 +407,8 @@ class ProjectionUtil {
         ICEBERG_DCHECK(std::holds_alternative<int32_t>(literal.value()),
                        "Expected int32_t");
         if (auto value = std::get<int32_t>(literal.value()); value <= 0) {
-          return UnboundPredicateImpl<BoundReference>::Make(Expression::Operation::kGtEq,
-                                                            std::move(projected->term()),
-                                                            Literal::Int(value + 1));
+          return UnboundPredicateImpl<BoundReference>::Make(
+              Expression::Operation::kGtEq, projected->term(), Literal::Int(value + 1));
         }
         return projected;
       }
@@ -429,7 +425,7 @@ class ProjectionUtil {
                        "Expected int32_t");
         if (auto value = std::get<int32_t>(literal.value()); value < 0) {
           return UnboundPredicateImpl<BoundReference>::Make(
-              Expression::Operation::kNotIn, std::move(projected->term()),
+              Expression::Operation::kNotIn, projected->term(),
               {literal, Literal::Int(value + 1)});
         }
         return projected;
@@ -460,7 +456,7 @@ class ProjectionUtil {
                                     [](int32_t value) { return Literal::Int(value); }) |
               std::ranges::to<std::vector>();
           return UnboundPredicateImpl<BoundReference>::Make(Expression::Operation::kNotIn,
-                                                            std::move(projected->term()),
+                                                            projected->term(),
                                                             std::move(values));
         }
         return projected;
