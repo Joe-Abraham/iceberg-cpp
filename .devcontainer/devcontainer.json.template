@@ -33,15 +33,22 @@
 	],
 	"mounts": [
 		"source=${localEnv:HOME}/.ssh,target=/home/iceberg/.ssh,type=bind,readonly"
-	],
-	"customizations": {
+  ],
+	"containerEnv": {
+		"CC": "/usr/bin/gcc",
+		"CXX": "/usr/bin/g++"
+	},
+  "customizations": {
 		"vscode": {
 			"extensions": [
-				"eamodio.gitlens"
+				"eamodio.gitlens",
+				"ms-vscode.cpptools",
+				"llvm-vs-code-extensions.vscode-clangd"
 			],
 			"settings": {
 				"editor.formatOnSave": true
 			}
 		}
-	}
+	},
+	"postCreateCommand": "gcc --version && g++ --version"
 }

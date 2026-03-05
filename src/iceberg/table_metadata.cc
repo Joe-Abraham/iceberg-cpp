@@ -472,7 +472,8 @@ Result<std::unique_ptr<TableMetadata>> TableMetadataUtil::Read(
   return TableMetadataFromJson(json);
 }
 
-Result<std::string> TableMetadataUtil::Write(FileIO& io, const TableMetadata* base,
+Result<std::string> TableMetadataUtil::Write(FileIO& io,
+                                             [[maybe_unused]] const TableMetadata* base,
                                              const std::string& base_metadata_location,
                                              TableMetadata& metadata) {
   int32_t version = ParseVersionFromLocation(base_metadata_location);
@@ -559,7 +560,7 @@ class TableMetadataBuilder::Impl {
 
   // Constructor from existing metadata
   explicit Impl(const TableMetadata* base_metadata,
-                std::string base_metadata_location = "")
+                [[maybe_unused]] std::string base_metadata_location = "")
       : base_(base_metadata), metadata_(*base_metadata) {
     // Initialize index maps from base metadata
     for (const auto& schema : metadata_.schemas) {
@@ -1647,7 +1648,7 @@ TableMetadataBuilder& TableMetadataBuilder::RemoveRef(const std::string& name) {
 }
 
 TableMetadataBuilder& TableMetadataBuilder::RemoveSnapshots(
-    const std::vector<std::shared_ptr<Snapshot>>& snapshots_to_remove) {
+    [[maybe_unused]] const std::vector<std::shared_ptr<Snapshot>>& snapshots_to_remove) {
   throw IcebergError(std::format("{} not implemented", __FUNCTION__));
 }
 
@@ -1703,11 +1704,12 @@ TableMetadataBuilder& TableMetadataBuilder::SetLocation(std::string_view locatio
 }
 
 TableMetadataBuilder& TableMetadataBuilder::AddEncryptionKey(
-    std::shared_ptr<EncryptedKey> key) {
+    [[maybe_unused]] std::shared_ptr<EncryptedKey> key) {
   throw IcebergError(std::format("{} not implemented", __FUNCTION__));
 }
 
-TableMetadataBuilder& TableMetadataBuilder::RemoveEncryptionKey(std::string_view key_id) {
+TableMetadataBuilder& TableMetadataBuilder::RemoveEncryptionKey(
+    [[maybe_unused]] std::string_view key_id) {
   throw IcebergError(std::format("{} not implemented", __FUNCTION__));
 }
 

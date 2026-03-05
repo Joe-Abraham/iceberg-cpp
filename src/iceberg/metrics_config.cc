@@ -198,7 +198,7 @@ Result<std::unordered_set<int32_t>> MetricsConfig::LimitFieldIds(const Schema& s
       return {};
     }
 
-    Status VisitPrimitive(const PrimitiveType& type) { return {}; }
+    Status VisitPrimitive([[maybe_unused]] const PrimitiveType& type) { return {}; }
 
     std::unordered_set<int32_t> Finish() const { return ids_; }
 

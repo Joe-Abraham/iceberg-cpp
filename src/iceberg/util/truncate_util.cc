@@ -30,7 +30,8 @@ namespace iceberg {
 
 namespace {
 template <TypeId type_id>
-Literal TruncateLiteralImpl(const Literal& literal, int32_t width) {
+Literal TruncateLiteralImpl([[maybe_unused]] const Literal& literal,
+                            [[maybe_unused]] int32_t width) {
   std::unreachable();
 }
 
