@@ -1585,7 +1585,7 @@ TableMetadataBuilder& TableMetadataBuilder::SetDefaultPartitionSpec(int32_t spec
 
 TableMetadataBuilder& TableMetadataBuilder::AddPartitionSpec(
     std::shared_ptr<PartitionSpec> spec) {
-  ICEBERG_BUILDER_ASSIGN_OR_RETURN(auto _, impl_->AddPartitionSpec(*spec));
+  ICEBERG_BUILDER_ASSIGN_OR_RETURN(auto spec_id, impl_->AddPartitionSpec(*spec));
   return *this;
 }
 
@@ -1614,7 +1614,7 @@ TableMetadataBuilder& TableMetadataBuilder::SetDefaultSortOrder(int32_t order_id
 
 TableMetadataBuilder& TableMetadataBuilder::AddSortOrder(
     std::shared_ptr<SortOrder> order) {
-  ICEBERG_BUILDER_ASSIGN_OR_RETURN(auto _, impl_->AddSortOrder(*order));
+  ICEBERG_BUILDER_ASSIGN_OR_RETURN(auto order_id, impl_->AddSortOrder(*order));
   return *this;
 }
 

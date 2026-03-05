@@ -77,58 +77,58 @@ struct ICEBERG_EXPORT TableMetadata {
   static constexpr int64_t kInitialSequenceNumber = 0;
   static constexpr int64_t kInitialRowId = 0;
 
-  static inline const std::unordered_map<TypeId, int8_t> kMinFormatVersions{};
+  static inline const std::unordered_map<TypeId, int8_t> kMinFormatVersions = {};
 
   /// An integer version number for the format
-  int8_t format_version = 0;
+  int8_t format_version;
   /// A UUID that identifies the table
-  std::string table_uuid = "";
+  std::string table_uuid;
   /// The table's base location
-  std::string location = "";
+  std::string location;
   /// The table's highest assigned sequence number
-  int64_t last_sequence_number = 0;
+  int64_t last_sequence_number;
   /// Timestamp in milliseconds from the unix epoch when the table was last updated.
-  TimePointMs last_updated_ms{};
+  TimePointMs last_updated_ms;
   /// The highest assigned column ID for the table
-  int32_t last_column_id = 0;
+  int32_t last_column_id;
   /// A list of schemas
-  std::vector<std::shared_ptr<iceberg::Schema>> schemas{};
+  std::vector<std::shared_ptr<iceberg::Schema>> schemas;
   /// ID of the table's current schema
-  int32_t current_schema_id = 0;
+  int32_t current_schema_id;
   /// A list of partition specs
-  std::vector<std::shared_ptr<iceberg::PartitionSpec>> partition_specs{};
+  std::vector<std::shared_ptr<iceberg::PartitionSpec>> partition_specs;
   /// ID of the current partition spec that writers should use by default
-  int32_t default_spec_id{};
+  int32_t default_spec_id;
   /// The highest assigned partition field ID across all partition specs for the table
-  int32_t last_partition_id{};
+  int32_t last_partition_id;
   /// A string to string map of table properties
-  TableProperties properties{};
+  TableProperties properties;
   /// ID of the current table snapshot
-  int64_t current_snapshot_id = 0;
+  int64_t current_snapshot_id;
   /// A list of valid snapshots
-  std::vector<std::shared_ptr<iceberg::Snapshot>> snapshots{};
+  std::vector<std::shared_ptr<iceberg::Snapshot>> snapshots;
   /// A list of timestamp and snapshot ID pairs that encodes changes to the current
   /// snapshot for the table
-  std::vector<SnapshotLogEntry> snapshot_log{};
+  std::vector<SnapshotLogEntry> snapshot_log;
   /// A list of timestamp and metadata file location pairs that encodes changes to the
   /// previous metadata files for the table
-  std::vector<MetadataLogEntry> metadata_log{};
+  std::vector<MetadataLogEntry> metadata_log;
   /// A list of sort orders
-  std::vector<std::shared_ptr<iceberg::SortOrder>> sort_orders{};
+  std::vector<std::shared_ptr<iceberg::SortOrder>> sort_orders;
   /// Default sort order id of the table
-  int32_t default_sort_order_id = 0;
+  int32_t default_sort_order_id;
   /// A map of snapshot references
-  std::unordered_map<std::string, std::shared_ptr<SnapshotRef>> refs{};
+  std::unordered_map<std::string, std::shared_ptr<SnapshotRef>> refs;
   /// A list of table statistics
-  std::vector<std::shared_ptr<struct StatisticsFile>> statistics{};
+  std::vector<std::shared_ptr<struct StatisticsFile>> statistics;
   /// A list of partition statistics
-  std::vector<std::shared_ptr<struct PartitionStatisticsFile>> partition_statistics{};
+  std::vector<std::shared_ptr<struct PartitionStatisticsFile>> partition_statistics;
   /// A `long` higher than all assigned row IDs
-  int64_t next_row_id = 0;
+  int64_t next_row_id;
 
   static Result<std::unique_ptr<TableMetadata>> Make(
-      const Schema& schema, const PartitionSpec& spec, const SortOrder& sort_order,
-      const std::string& location,
+      const iceberg::Schema& schema, const iceberg::PartitionSpec& spec,
+      const iceberg::SortOrder& sort_order, const std::string& location,
       const std::unordered_map<std::string, std::string>& properties,
       int format_version = kDefaultTableFormatVersion);
 

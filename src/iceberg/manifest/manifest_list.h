@@ -136,13 +136,13 @@ struct ICEBERG_EXPORT ManifestFile {
   /// Element field id: 508
   /// A list of field summaries for each partition field in the spec. Each field in the
   /// list corresponds to a field in the manifest file's partition spec.
-  std::vector<PartitionFieldSummary> partitions{};
+  std::vector<PartitionFieldSummary> partitions;
   /// Field id: 519
   /// Implementation-specific key metadata for encryption
-  std::vector<uint8_t> key_metadata{};
+  std::vector<uint8_t> key_metadata;
   /// Field id: 520
   /// The starting _row_id to assign to rows added by ADDED data files
-  std::optional<int64_t> first_row_id = std::nullopt;
+  std::optional<int64_t> first_row_id;
 
   /// \brief Checks if this manifest file contains entries with ADDED status.
   bool has_added_files() const { return added_files_count.value_or(1) > 0; }

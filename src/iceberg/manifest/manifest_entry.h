@@ -73,14 +73,14 @@ struct ICEBERG_EXPORT DataFile {
   Content content = Content::kData;
   /// Field id: 100
   /// Full URI for the file with FS scheme
-  std::string file_path = "";
+  std::string file_path;
   /// Field id: 101
   /// File format type, avro, orc, parquet, or puffin
   FileFormatType file_format = FileFormatType::kParquet;
   /// Field id: 102
   /// Partition data tuple, schema based on the partition spec output using partition
   /// field ids
-  PartitionValues partition{};
+  PartitionValues partition;
   /// Field id: 103
   /// Number of records in this file, or the cardinality of a deletion vector
   int64_t record_count = 0;
@@ -93,50 +93,50 @@ struct ICEBERG_EXPORT DataFile {
   /// Map from column id to the total size on disk of all regions that store the column.
   /// Does not include bytes necessary to read other columns, like footers. Leave null for
   /// row-oriented formats (Avro)
-  std::map<int32_t, int64_t> column_sizes{};
+  std::map<int32_t, int64_t> column_sizes;
   /// Field id: 109
   /// Key field id: 119
   /// Value field id: 120
   /// Map from column id to number of values in the column (including null and NaN values)
-  std::map<int32_t, int64_t> value_counts{};
+  std::map<int32_t, int64_t> value_counts;
   /// Field id: 110
   /// Key field id: 121
   /// Value field id: 122
   /// Map from column id to number of null values in the column
-  std::map<int32_t, int64_t> null_value_counts{};
+  std::map<int32_t, int64_t> null_value_counts;
   /// Field id: 137
   /// Key field id: 138
   /// Value field id: 139
   /// Map from column id to number of NaN values in the column
-  std::map<int32_t, int64_t> nan_value_counts{};
+  std::map<int32_t, int64_t> nan_value_counts;
   /// Field id: 125
   /// Key field id: 126
   /// Value field id: 127
   /// Map from column id to lower bound in the column serialized as binary.
   /// Each value must be less than or equal to all non-null, non-NaN values in the column
   /// for the file.
-  std::map<int32_t, std::vector<uint8_t>> lower_bounds{};
+  std::map<int32_t, std::vector<uint8_t>> lower_bounds;
   /// Field id: 128
   /// Key field id: 129
   /// Value field id: 130
   /// Map from column id to upper bound in the column serialized as binary.
   /// Each value must be greater than or equal to all non-null, non-NaN values in the
   /// column for the file.
-  std::map<int32_t, std::vector<uint8_t>> upper_bounds{};
+  std::map<int32_t, std::vector<uint8_t>> upper_bounds;
   /// Field id: 131
   /// Implementation-specific key metadata for encryption
-  std::vector<uint8_t> key_metadata{};
+  std::vector<uint8_t> key_metadata;
   /// Field id: 132
   /// Element Field id: 133
   /// Split offsets for the data file. For example, all row group offsets in a Parquet
   /// file. Must be sorted ascending.
-  std::vector<int64_t> split_offsets{};
+  std::vector<int64_t> split_offsets;
   /// Field id: 135
   /// Element Field id: 136
   /// Field ids used to determine row equality in equality delete files. Required when
   /// content=2 and should be null otherwise. Fields with ids listed in this column must
   /// be present in the delete file.
-  std::vector<int32_t> equality_ids{};
+  std::vector<int32_t> equality_ids;
   /// Field id: 140
   /// ID representing sort order for this file
   ///
@@ -145,14 +145,14 @@ struct ICEBERG_EXPORT DataFile {
   /// id. Position deletes are required to be sorted by file and position, not a table
   /// order, and should set sort order id to null. Readers must ignore sort order id for
   /// position delete files.
-  std::optional<int32_t> sort_order_id = std::nullopt;
+  std::optional<int32_t> sort_order_id;
   /// Field id: 142
   /// The _row_id for the first row in the data file.
   ///
   /// Reference:
   /// - [First Row ID
   /// Inheritance](https://github.com/apache/iceberg/blob/main/format/spec.md#first-row-id-inheritance)
-  std::optional<int64_t> first_row_id = std::nullopt;
+  std::optional<int64_t> first_row_id;
   /// Field id: 143
   /// Fully qualified location (URI with FS scheme) of a data file that all deletes
   /// reference.
@@ -160,7 +160,7 @@ struct ICEBERG_EXPORT DataFile {
   /// Position delete metadata can use referenced_data_file when all deletes tracked by
   /// the entry are in a single data file. Setting the referenced file is required for
   /// deletion vectors.
-  std::optional<std::string> referenced_data_file = std::nullopt;
+  std::optional<std::string> referenced_data_file;
   /// Field id: 144
   /// The offset in the file where the content starts.
   ///
@@ -168,16 +168,16 @@ struct ICEBERG_EXPORT DataFile {
   /// blob for direct access to a deletion vector. For deletion vectors, these values are
   /// required and must exactly match the offset and length stored in the Puffin footer
   /// for the deletion vector blob.
-  std::optional<int64_t> content_offset = std::nullopt;
+  std::optional<int64_t> content_offset;
   /// Field id: 145
   /// The length of a referenced content stored in the file; required if content_offset is
   /// present
-  std::optional<int64_t> content_size_in_bytes = std::nullopt;
+  std::optional<int64_t> content_size_in_bytes;
 
   /// \brief Partition spec id for this data file.
   /// \note This field is for internal use only and will not be persisted to manifest
   /// entry.
-  std::optional<int32_t> partition_spec_id = std::nullopt;
+  std::optional<int32_t> partition_spec_id;
 
   static constexpr int32_t kContentFieldId = 134;
   inline static const SchemaField kContent = SchemaField::MakeOptional(
