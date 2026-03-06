@@ -18,6 +18,8 @@
 # This Dockerfile is used to build a development container for Iceberg C++.
 # It is based on the Ubuntu image and installs necessary dependencies.
 
+# This Dockerfile is used to build a development container for Iceberg C++.
+
 FROM ubuntu:24.04
 
 # Install necessary packages

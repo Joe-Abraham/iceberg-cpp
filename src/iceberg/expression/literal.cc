@@ -23,6 +23,7 @@
 #include <concepts>
 #include <cstdint>
 #include <string>
+#include <utility>
 
 #include "iceberg/util/checked_cast.h"
 #include "iceberg/util/conversions.h"
@@ -245,7 +246,7 @@ Result<Literal> LiteralCaster::CastFromBinary(
   switch (target_type->type_id()) {
     case TypeId::kFixed: {
       auto target_fixed_type = internal::checked_pointer_cast<FixedType>(target_type);
-      if (binary_val.size() == target_fixed_type->length()) {
+      if (std::cmp_equal(binary_val.size(), target_fixed_type->length())) {
         return Literal::Fixed(std::move(binary_val));
       }
       return InvalidArgument("Failed to cast Binary with length {} to Fixed({})",
@@ -525,8 +526,8 @@ bool Literal::IsAboveMax() const { return std::holds_alternative<AboveMax>(value
 bool Literal::IsNull() const { return std::holds_alternative<std::monostate>(value_); }
 
 bool Literal::IsNaN() const {
-  return std::holds_alternative<float>(value_) && std::isnan(std::get<float>(value_)) ||
-         std::holds_alternative<double>(value_) && std::isnan(std::get<double>(value_));
+  return (std::holds_alternative<float>(value_) && std::isnan(std::get<float>(value_))) ||
+         (std::holds_alternative<double>(value_) && std::isnan(std::get<double>(value_)));
 }
 
 // LiteralCaster implementation
