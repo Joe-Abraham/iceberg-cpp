@@ -21,6 +21,7 @@
 
 #include <string>
 #include <unordered_map>
+#include <utility>
 
 #include "iceberg/result.h"
 #include "iceberg/schema.h"
