@@ -24,6 +24,7 @@ project(
     default_options: [
         'cpp_std=c++23,c++latest',
         'warning_level=2',
+        'werror=true',
         # Don't build any tests for curl
         'curl:tests=disabled',
         'curl:unittests=disabled',
