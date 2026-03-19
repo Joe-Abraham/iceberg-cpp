@@ -15,4 +15,12 @@
 # specific language governing permissions and limitations
 # under the License.
 
+set(CMAKE_COMPILE_WARNING_AS_ERROR ON)
+
+if(MSVC)
+  add_compile_options(/W4 /we4100)
+else()
+  add_compile_options(-Wall -Wextra -Werror=unused-parameter)
+endif()
+
 add_subdirectory(iceberg)

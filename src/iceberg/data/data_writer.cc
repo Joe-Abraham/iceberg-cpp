@@ -35,6 +35,7 @@ class DataWriter::Impl {
         .path = options.path,
         .schema = options.schema,
         .io = options.io,
+        .metadata = {},
         .properties = WriterProperties::FromMap(options.properties),
     };
 

@@ -1066,7 +1066,7 @@ TEST_F(SchemaThreadSafetyTest, ConcurrentFindFieldById) {
   std::vector<std::thread> threads;
 
   for (int i = 0; i < num_threads; ++i) {
-    threads.emplace_back([this, iterations_per_thread]() {
+    threads.emplace_back([this]() {
       for (int j = 0; j < iterations_per_thread; ++j) {
         ASSERT_THAT(schema_->FindFieldById(1), ::testing::Optional(*field1_));
         ASSERT_THAT(schema_->FindFieldById(999), ::testing::Optional(std::nullopt));
@@ -1085,7 +1085,7 @@ TEST_F(SchemaThreadSafetyTest, MixedConcurrentOperations) {
   std::vector<std::thread> threads;
 
   for (int i = 0; i < num_threads; ++i) {
-    threads.emplace_back([this, iterations_per_thread, i]() {
+    threads.emplace_back([this, i]() {
       for (int j = 0; j < iterations_per_thread; ++j) {
         if (i % 4 == 0) {
           ASSERT_THAT(schema_->FindFieldById(1), ::testing::Optional(*field1_));

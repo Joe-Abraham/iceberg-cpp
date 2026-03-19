@@ -72,7 +72,7 @@ class PositionDeleteWriter::Impl {
     buffered_positions_.push_back(pos);
     referenced_paths_.emplace(file_path);
 
-    if (buffered_paths_.size() >= options_.flush_threshold) {
+    if (std::cmp_greater_equal(buffered_paths_.size(), options_.flush_threshold)) {
       return FlushBuffer();
     }
     return {};
