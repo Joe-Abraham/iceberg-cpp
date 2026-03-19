@@ -409,7 +409,7 @@ class UpdateMappingVisitor {
     }
 
     if (fields_to_add.empty()) {
-      return std::move(mapping);
+      return mapping;
     }
 
     std::vector<MappedField> new_fields;
